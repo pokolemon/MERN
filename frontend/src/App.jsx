@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import AdminDashboard from "./pages/AdminDashboard";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
@@ -7,33 +7,33 @@ import RoleBaseRoutes from "./utils/RoleBaseRoutes";
 import AdminSummary from "./components/dashboard/AdminSummary";
 import DepartmentList from "./components/departments/DepartmentList";
 
-
 function App() {
- 
-
   return (
-   <BrowserRouter>
-     <Routes>
-       <Route path="/" element={<Navigate to="/admin-dashboard" />}></Route>
-       <Route path="/login" element={<Login />}></Route>
-       <Route path="/admin-dashboard" element={
-        <PrivateRoutes>
-          <RoleBaseRoutes  requiredRole={["admin"]}>
-            <AdminDashboard />
-          </RoleBaseRoutes>
-        </PrivateRoutes>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/admin-dashboard" />} />
+        <Route path="/login" element={<Login />} />
 
-       
-        
-        }>
-
-          <Route index element={<AdminSummary />}> </Route>
-          <Route path="/admin-dashboard/departments" element={<DepartmentList />}> </Route>
+        <Route
+          path="/admin-dashboard"
+          element={
+            <PrivateRoutes>
+              <RoleBaseRoutes requiredRole={["admin"]}>
+                <AdminDashboard />
+              </RoleBaseRoutes>
+            </PrivateRoutes>
+          }
+        >
+          {/* Define the index route */}
+          <Route index element={<AdminSummary />} />
+          {/* Define other child routes without redundant paths */}
+          <Route path="departments" element={<DepartmentList />} />
         </Route>
-       <Route path="/employee-dashboard" element={<EmployeeDashboard />}></Route>
-     </Routes>
-   </BrowserRouter>
+
+        <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
-export default App
+export default App;
